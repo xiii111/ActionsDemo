@@ -1,0 +1,16 @@
+name: auto-reviewers-when-pull-request
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+jobs:
+  add-reviews:
+    # ready_for_review で発火させるので、Draft PR は除外する
+    # renovate が作る PR は除外する
+    if: |
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Echo
+        run: |
+            echo "TestEcho"
