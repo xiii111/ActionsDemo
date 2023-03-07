@@ -4,9 +4,7 @@ on:
     types: [opened, ready_for_review]
 jobs:
   add-reviews:
-    # ready_for_review で発火させるので、Draft PR は除外する
-    # renovate が作る PR は除外する
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false && !contains(github.event.pull_request.labels.*.name, 'renovate')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
